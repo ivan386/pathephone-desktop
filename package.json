@@ -9,6 +9,38 @@
   "license": "MIT",
   "homepage": "http://pathephone.metabin.space",
   "main": "app/background.js",
+  "release": {
+    "verifyConditions": [
+      "@semantic-release/github"
+    ],
+    "publish": [
+      {
+        "path": "@semantic-release/github",
+        "assets": [
+          {
+            "path": "dist/*.exe",
+            "label": "Windows"
+          },
+          {
+            "path": "dist/*.deb",
+            "label": "Linux (Debian, Ubuntu...)"
+          },
+          {
+            "path": "dist/*.rpm",
+            "label": "Linux (Fedora, CentOS...)"
+          },
+          {
+            "path": "dist/*.AppImage",
+            "label": "Linux"
+          },
+          {
+            "path": "dist/*.dmg",
+            "label": "Mac"
+          }
+        ]
+      }
+    ]
+  },
   "build": {
     "appId": "space.metabin.pathephone",
     "files": [
@@ -62,7 +94,8 @@
     "lint": "eslint --fix .",
     "start": "node build/start.js",
     "prebuild": "webpack --config=build/webpack.app.config.js --env=production",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "release": "semantic-release"
   },
   "dependencies": {
     "ajv": "^5.3.0",
@@ -126,6 +159,7 @@
     "mocha": "^4.0.1",
     "node-sass": "^4.7.1",
     "sass-loader": "^6.0.6",
+    "semantic-release": "^8.2.0",
     "source-map-support": "^0.5.0",
     "spectron": "^3.7.2",
     "style-loader": "^0.19.0",
